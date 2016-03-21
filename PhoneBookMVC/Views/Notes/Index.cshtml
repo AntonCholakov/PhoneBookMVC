@@ -1,0 +1,38 @@
+﻿@model PhoneBookMVC.ViewModels.NotesVM.NotesIndexVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your notes about @Model.Contact.FirstName @Model.Contact.LastName</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "Notes", new { contactId = Model.ContactId }, null)
+</p>
+<table class="table">
+    <tr>
+        <th>Text</th>
+        <th>Created On</th>
+        <th>Last Edited On</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model.Notes)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Text)</td>
+            <td>@Html.DisplayFor(modelItem => item.DateCreated)</td>
+            <td>@Html.DisplayFor(modelItem => item.DateLastEdit)</td>
+            <td>
+                <a href="../Edit/@item.ID?contactId=@item.ContactId" class="icon-mini">
+                    <img src="~/Content/images/icons/edit.png" alt="Edit" />
+                </a> |
+                <a href="../Delete/@item.ID" class="icon-mini">
+                    <img src="~/Content/images/icons/delete.png" alt="Delete" />
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>

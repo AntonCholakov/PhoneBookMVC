@@ -1,0 +1,22 @@
+﻿@model PhoneBookMVC.ViewModels.PhonesVM.PhonesIndexVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>@Html.ActionLink("Add new phone", "Create", "Phones", new { contactId = Model.ContactId }, null)</h2>
+@Html.ActionLink("Back to contacts", "Index", "Contacts")
+<h2>Phones</h2>
+
+<dl>
+    @foreach (var p in Model.Phones)
+    {
+        <dt>@Html.ActionLink(@p.Number, "Edit", "Phones", new { contactId = p.ContactId, id = p.ID }, null)</dt>
+        <dd>
+            @p.Type |
+            <a href="@Url.Action("Delete/" + p.ID, "Phones")" class="icon-mini">
+                <img src="~/Content/images/icons/delete.png" alt="Notes" />
+            </a>
+        </dd>
+    }
+</dl>

@@ -1,0 +1,19 @@
+﻿@using UserRoleEnum = PhoneBookMVC.Entity.User.UserRoleEnum
+
+<ul class="nav navbar-nav navbar-right">
+    @if (PhoneBookMVC.Models.AuthenticationManager.LoggedUser != null)
+    {
+        <li><a>Hello, @PhoneBookMVC.Models.AuthenticationManager.LoggedUser.Username</a></li>
+        if (PhoneBookMVC.Models.AuthenticationManager.LoggedUser.Role == UserRoleEnum.Admin)
+        {
+            <li>@Html.ActionLink("Admin Panel", "ManageUsers", "Account")</li>
+        }
+        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+    }
+    else
+    {
+
+        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+        <li>@Html.ActionLink("Register", "Register", "Account")</li>
+    }
+</ul>

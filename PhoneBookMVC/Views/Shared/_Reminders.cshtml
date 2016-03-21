@@ -1,0 +1,21 @@
+﻿@model PhoneBookMVC.ViewModels.ContactsVM.ContactsIndexVM
+@{
+    var todayBirthdays = Model.Contacts.Where(item => item.BirthDay != null && item.BirthDay.Value.DayOfYear == DateTime.Now.DayOfYear).ToArray();
+    var tomorrowBirthdays = Model.Contacts.Where(item => item.BirthDay != null && (item.BirthDay.Value.DayOfYear-1) == DateTime.Now.DayOfYear).ToArray();
+    if (todayBirthdays.Length > 0 || tomorrowBirthdays.Length > 0)
+    {
+        <div class="alert alert-success" role="alert">
+            <ul>
+                @foreach (var item in todayBirthdays)
+                {
+                    int years = DateTime.Now.Year - item.BirthDay.Value.Year;
+                    <li class="birthday font-bold">@item.FirstName @item.LastName has a Birthday! Say Happy @years!</li>
+                }
+                @foreach (var item in tomorrowBirthdays)
+                {
+                    <li>@item.FirstName @item.LastName has a Birthday tomorrow!</li>
+                }
+            </ul>
+        </div>
+    }
+}

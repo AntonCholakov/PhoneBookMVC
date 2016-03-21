@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>PhoneBook</h1>
+    <p class="lead">Control your contacts and their phone numbers</p>
+    <p>@Html.ActionLink("Your Account", "Index", "Account", null, new { @class = "btn btn-primary btn-lg" })</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            Create your account
+        </p>
+        <p>@Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Your contacts</h2>
+        <p>Keep in touch with your friends and control their phone numbers</p>
+        <p>@Html.ActionLink("Contacts", "Index", "Contacts", null, new { @class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>About us</h2>
+        <p>Who are we? What we do?</p>
+        <p>@Html.ActionLink("About Us", "About", "Home", null, new { @class = "btn btn-default" })</p>
+    </div>
+</div>

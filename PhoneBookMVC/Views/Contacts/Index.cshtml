@@ -1,0 +1,126 @@
+﻿@model PhoneBookMVC.ViewModels.ContactsVM.ContactsIndexVM
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your contacts</h2>
+@Html.Partial("_Reminders", Model)
+@Html.ActionLink("Add new Contact", "Create")
+@using (Html.BeginForm("Index", "Contacts", FormMethod.Get))
+{
+    <p>
+        Find by first name: @Html.TextBox("firstname", null, new { @class = "form-control" }) <br />
+        Find by last name: @Html.TextBox("lastname", null, new { @class = "form-control" }) <br />
+        Filter by group:
+        <select name="groupId" class="form-control">
+            <option value="0">All groups</option>
+            @foreach (var group in Model.ContactGroups)
+            {
+
+                bool selected = group.ID == Model.GroupId;
+                
+                <option value="@group.ID" selected="@selected">@group.Name</option>
+            }
+        </select>
+        <br />
+        @Html.HiddenFor(model => Model.GroupId)
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @{
+                Model.Props["sortOrder"] = Model.SortOrder == "firstname_asc" ? "firstname_desc" : "firstname_asc";
+                @Html.ActionLink("First Name", "Index", "Contacts", new RouteValueDictionary(Model.Props), null)
+            }
+        </th>
+        <th>
+            @{
+                Model.Props["sortOrder"] = Model.SortOrder == "lastname_asc" ? "lastname_desc" : "lastname_asc";
+                @Html.ActionLink("Last Name", "Index", "Contacts", new RouteValueDictionary(Model.Props), null)
+            }
+        </th>
+        <th>
+            @{
+                Model.Props["sortOrder"] = Model.SortOrder == "email_asc" ? "email_desc" : "email_asc";
+                @Html.ActionLink("Email", "Index", "Contacts", new RouteValueDictionary(Model.Props), null)
+            }
+        </th>
+        <th>
+            @{
+                Model.Props["sortOrder"] = Model.SortOrder == "birthdate_asc" ? "birthdate_desc" : "birthdate_asc";
+                @Html.ActionLink("Birth Date", "Index", "Contacts", new RouteValueDictionary(Model.Props), null)
+            }
+        </th>
+        <th>Notes</th>
+        <th>Actions</th>
+        <th>Groups</th>
+    </tr>
+
+    @foreach (var item in Model.PagedContacts)
+    {
+        <tr>
+            <td>
+                <div class="contact-photo-holder">
+                    <img class="contact-photo" src="@item.PhotoFilePath" alt="@item.FirstName Photo" />
+                </div>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @if (item.BirthDay != null)
+                {
+                    @item.BirthDay.Value.ToShortDateString()
+                }
+            </td>
+            <td>
+                <a href="@Url.Action("Index/"+item.ID, "Notes")" class="icon-mini">
+                    <img src="~/Content/images/icons/note.png" alt="Notes" />
+                </a>
+            </td>
+            <td>
+                <a href="Phones/Index/@item.ID" class="icon-mini">
+                    <img src="~/Content/images/icons/phone.png" alt="View Phones" />
+                </a> |
+                <a href="Contacts/EditGroups/@item.ID" class="icon-mini">
+                    <img src="~/Content/images/icons/group.png" alt="View Groups" />
+                </a> |
+                <a href="Contacts/Edit/@item.ID" class="icon-mini">
+                    <img src="~/Content/images/icons/edit.png" alt="Edit Note" />
+                </a> |
+                <a href="Contacts/Delete/@item.ID" class="icon-mini">
+                    <img src="~/Content/images/icons/delete.png" alt="Delete Note" />
+                </a>
+            </td>
+            <td>
+                @*@if (item.ContactGroups.Count == 0)
+                {
+                    @Html.Raw("Unassigned")
+                }
+                @foreach (var g in item.ContactGroups)
+                {
+                    @g.Name<br />
+                }*@
+
+                @Html.Partial("_ContactGroups", item)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+
+Page @(Model.PagedContacts.PageCount < Model.PagedContacts.PageNumber ? 0 : Model.PagedContacts.PageNumber) of @Model.PagedContacts.PageCount
+
+@Html.PagedListPager(Model.PagedContacts, page => Url.Action("Index",
+        new { page, sortOrder = Model.SortOrder, firstname = Model.FirstName, lastname = Model.LastName }))

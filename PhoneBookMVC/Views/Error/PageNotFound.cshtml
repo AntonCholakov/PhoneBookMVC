@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "PageNotFound";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    img {
+        width: 100%;
+    }
+</style>
+<div class="row">
+    <div class="col-md-6">
+        <img src="~/Content/images/sad_cat.png" alt="Page not found" />
+    </div>
+    <div class="col-md-6">
+        <h2>The page you are looking for cannot be found</h2>
+        <a href="javascript:void(0);" onclick="history.go(-1);">Back to previous page</a>
+    </div>
+</div>

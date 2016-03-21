@@ -1,0 +1,10 @@
+﻿@model PhoneBookMVC.Entity.Contact
+
+@if (Model.ContactGroups.Count == 0)
+{
+    @Html.Raw("Unassigned")
+}
+@foreach (var g in Model.ContactGroups)
+{
+    @g.Name<br />
+}

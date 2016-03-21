@@ -1,0 +1,57 @@
+﻿@model PhoneBookMVC.ViewModels.ContactsVM.ContactsDeleteVM
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete @Model.FirstName @Model.LastName from your contact list?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+    @if (!String.IsNullOrEmpty(Model.PhotoFilePath))
+    {
+        <div>
+            <img src="@Model.PhotoFilePath" alt="@Model.FirstName" style="max-height:200px;max-width:200px" />
+        </div>
+    }
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.HiddenFor(model => model.BirthDate)
+            @Html.HiddenFor(model => model.ID)
+            @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.PhotoFilePath)
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

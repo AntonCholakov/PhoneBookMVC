@@ -1,0 +1,67 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.contact-photo-holder {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.contact-photo {
+    width: 100px;
+    border: 1px solid #ccc;
+}
+
+.icon-mini:hover {
+    text-decoration: none;
+}
+
+.icon-mini img {
+    width: 16px;
+    -moz-transition: 1s ease all;
+    -o-transition: 1s ease all;
+    -webkit-transition: 1s ease all;
+    transition: 1s ease all;
+}
+
+.icon-mini:hover img {
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+}
+
+.birthday {
+    padding-left: 25px;
+    list-style: none;
+    background: url("/Content/images/birthday.png") 1px 1px / 18px no-repeat;
+}
+
+
+.font-bold {
+    font-weight: bold;
+}
